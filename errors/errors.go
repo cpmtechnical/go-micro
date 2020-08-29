@@ -25,6 +25,17 @@ func New(id, detail string, code int32) error {
 	}
 }
 
+// NewValidateError add validation error response
+func NewValidateError(v map[string]*ValidateErrors) error {
+	return &Error{
+		Id:             "422",
+		Code:           422,
+		Detail:         "Validation Error",
+		Status:         http.StatusText(int(422)),
+		ValidateErrors: v,
+	}
+}
+
 // Parse tries to parse a JSON string into an error. If that
 // fails, it will set the given string as the error detail.
 func Parse(err string) *Error {
